@@ -1,14 +1,18 @@
-template<typename T> 
-int place_goal_and_start( \
-        vector< vector< vector<T> > > & map,\
-        const T (&symbols)[3],\
-        const int (&dim)[3]=(2,2,1), \
-        bool has_goal = false,\
-        bool has_start = false,\
-        int (&goal)[3] = (0,0,0),\
-        int (&start)[3] = (0,0,0))
+//Tried to get this to work as a recursive template, turns out that is a bit more than
+//	I am willing to chew at this moment.
+#include<stdlib.h>
+#include"coordin.h"
+using namespace std;
+void place_goal_and_start( \
+        vector< vector< vector<char> > > & map,\
+        const char (&symbols)[3],\
+        const int (&dim)[3], \
+        int (&goal)[3],\
+        int (&start)[3],\
+        bool has_goal=false,\
+        bool has_start=false)
 {
-    using namespace std;
+    
     //function that places a door (exit condition) and a point (starting
     //condition) on the map, while avoiding obstacles
      
@@ -18,7 +22,7 @@ int place_goal_and_start( \
 
     if(map[x][y][z] == symbols[0])
     {
-       place_goal_and_start(map,dim,false,false); 
+       place_goal_and_start(map,symbols,dim,goal,start,has_goal,has_goal); 
     }
     
     else if(has_goal == false)
@@ -40,7 +44,9 @@ int place_goal_and_start( \
     }
     else
     {
-        place_goal_and_start(map,dim,has_goal,has_start,goal); 
+        place_goal_and_start(map,symbols,dim,goal,start,has_goal,has_start); 
     }
     return;
 }
+
+

@@ -1,6 +1,6 @@
 #include<cmath>
 #include<algorithm>
-#include "Wormhole.h"
+#include"coordin.h"
 template<typename T>
 void pathfinder(\
         vector< vector< vector<T> > > & world,\
@@ -8,7 +8,7 @@ void pathfinder(\
         const int (&dim)[3], \
         int (&goal)[3],\
         int (&start)[3],\
-        bool goal_reached = false)
+        bool goal_reached)
 {
     using namespace std;
     
