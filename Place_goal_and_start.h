@@ -2,20 +2,22 @@
 //	I am willing to chew at this moment.
 #include<stdlib.h>
 #include"coordin.h"
-using namespace std;
+
+template<typename T>
 void place_goal_and_start( \
-        vector< vector< vector<char> > > & map,\
-        const char (&symbols)[3],\
+        vector< vector< vector<T> > > & map,\
+        const T (&symbols)[3],\
         const int (&dim)[3], \
         int (&goal)[3],\
         int (&start)[3],\
-        bool has_goal=false,\
-        bool has_start=false)
-{
-    
+        bool has_goal,\
+        bool has_start)
+{     
     //function that places a door (exit condition) and a point (starting
     //condition) on the map, while avoiding obstacles
-     
+    
+    using namespace std;
+
     int x = rand() % dim[0];
     int y = rand() % dim[1];
     int z = rand() % dim[2];

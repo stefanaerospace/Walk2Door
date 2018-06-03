@@ -14,15 +14,15 @@ void place_obst(\
         const int (&dim)[3],\
 	int obst_chance=20);
 
-//TODO make this a template function again
+template<typename T>
 void place_goal_and_start( \
-        vector< vector< vector<char> > > & map,\
-        const char (&symbols)[3],\
+        vector< vector< vector<T> > > & map,\
+        const T (&symbols)[3],\
         const int (&dim)[3], \
         int (&goal)[3],\
         int (&start)[3],\
-        bool has_goal,\
-        bool has_start);
+        bool has_goal = false,\
+        bool has_start = false);
 
 template<typename T>
 void pathfinder(\
@@ -32,7 +32,16 @@ void pathfinder(\
         int (&goal)[3],\
         int (&start)[3],\
         bool goal_reached=false);
-
+/*
+template<typename T>
+void pathfinder(\
+        vector< vector< vector<T> > > & world,\
+        const T (&symbols)[3],\
+        const int (&dim)[3], \
+        int (&goal)[3],\
+        int (&start)[3],\
+        bool goal_reached = false);
+*/
 #include"Place_obst.h"
 #include"Place_goal_and_start.h"
 #include"Pathfinder.h"

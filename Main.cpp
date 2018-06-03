@@ -20,6 +20,7 @@ int main()
     cout<<"\n\nFinished placing obstacles, now setting start and goal...\n\n";
     place_goal_and_start(map3d,sym,dim,goal,start);
 
-
+    cout<<"\n\nFinished placing a goal and start. Finding a path...\n\n";
+    pathfinder(map3d,sym,dim,goal,start);
 }
 
