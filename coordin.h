@@ -32,17 +32,14 @@ void pathfinder(\
         int (&goal)[3],\
         int (&start)[3],\
         bool goal_reached=false);
-/*
+
 template<typename T>
-void pathfinder(\
+void print_floor(\
         vector< vector< vector<T> > > & world,\
-        const T (&symbols)[3],\
-        const int (&dim)[3], \
-        int (&goal)[3],\
-        int (&start)[3],\
-        bool goal_reached = false);
-*/
+        const int (&dim)[3]);
+
 #include"Place_obst.h"
 #include"Place_goal_and_start.h"
 #include"Pathfinder.h"
+#include"Print_floor.h"
 #endif

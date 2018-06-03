@@ -22,5 +22,8 @@ int main()
 
     cout<<"\n\nFinished placing a goal and start. Finding a path...\n\n";
     pathfinder(map3d,sym,dim,goal,start);
+    
+    cout<<"\n\nPath found, printing result....\n\n";
+    print_floor(map3d,dim);
 }
 
