@@ -34,9 +34,10 @@ void place_goal_and_start( \
         goal[1] = y;
         goal[2] = z;
         has_goal = true;
+        place_goal_and_start(map,symbols,dim,goal,start,has_goal,has_goal);
     }
 
-    if(map[x][y][z] != symbols[0] && map[x][y][z] != symbols[1] && has_goal == true)
+    else if( map[x][y][z] != symbols[1] && has_goal == true)
     {
         map[x][y][z] = symbols[2];
         start[0] = x;
@@ -44,11 +45,10 @@ void place_goal_and_start( \
         start[2] = z;       
         has_start = true;
     }
-    else
+    else if(has_start == false)
     {
         place_goal_and_start(map,symbols,dim,goal,start,has_goal,has_start); 
     }
-    return;
 }
 
 
