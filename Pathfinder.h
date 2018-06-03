@@ -1,5 +1,6 @@
 #include<cmath>
 #include<algorithm>
+#include<iostream>
 #include"coordin.h"
 #include"Wormhole.h"
 
@@ -13,23 +14,32 @@ void pathfinder(\
         bool goal_reached)
 {
     using namespace std;
-    
+
     int vec[3] = {(int)abs(goal[0]-start[0]),(int)abs(goal[1]-start[1]), \
             (int)abs(goal[2]-start[2])};
-
-    int move_dir = *std::max_element(vec,vec+sizeof(vec));
-    start[move_dir] += 1;
    
+    int move_dir = vec[0];
+    if(move_dir<vec[0])
+    {
+       move_dir = vec[1];
+    }
+    if(move_dir<vec[2])
+    {
+       move_dir = vec[2];
+    }
+    
+    start[move_dir] += 1;
+    
     //bounds check--if vector fails take the nearest exit
     if(start[move_dir] < 0 || start[move_dir] > dim[move_dir])
-    { 
+    {
         start[move_dir]-=1;
         world[start[0]][start[1]][start[2]] = symbols[0];
         wormhole(world,symbols,dim,goal,start,goal_reached);
     } 
 
     //symbols check--make sure that the point isn't moving onto an obstacle
-    if(world[start[0]][start[1]][start[2]] != symbols[0] && \
+    else if(world[start[0]][start[1]][start[2]] != symbols[0] && \
             world[start[0]][start[1]][start[2]] != symbols[2])
     {
        if(world[start[0]][start[1]][start[2]] == symbols[1])
@@ -42,14 +52,13 @@ void pathfinder(\
            pathfinder(world,symbols,dim,goal,start,goal_reached);
        }
     }
-    
     //if heading into an obstacle, block off current position and backtrack
     else
     {
+        cout<<"\n\nelse statment\n\n";
         world[start[0]][start[1]][start[2]] = symbols[0];        
         start[move_dir]-=1;
         wormhole(world,symbols,dim,goal,start,goal_reached);
     }
 
-    return;
 }
