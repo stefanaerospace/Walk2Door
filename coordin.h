@@ -30,8 +30,7 @@ void pathfinder(\
         const T (&symbols)[3],\
         const int (&dim)[3], \
         int (&goal)[3],\
-        int (&start)[3],\
-        bool goal_reached=false);
+        int (&start)[3]);
 
 template<typename T>
 void print_floor(\

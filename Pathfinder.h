@@ -10,11 +10,11 @@ void pathfinder(\
         const T (&symbols)[3],\
         const int (&dim)[3], \
         int (&goal)[3],\
-        int (&start)[3],\
-        bool goal_reached)
+        int (&start)[3])
 {
     using namespace std;
 
+    bool greached = false;//this flags if the goal has been reached or not
     //determine the direction that the point should march in
     int vec[3] = {(int)abs(goal[0]-start[0]),(int)abs(goal[1]-start[1]), \
             (int)abs(goal[2]-start[2])};
@@ -32,15 +32,16 @@ void pathfinder(\
     {
         move_dir = 2;
     } 
+    cout<<start[move_dir]<<endl;
     
-    start[move_dir] += 1;
+    start[move_dir] += ((goal[move_dir]-start[move_dir])/(int)abs(goal[move_dir]-start[move_dir]));
     
     //bounds check--if vector fails take the nearest exit
     if(start[move_dir] < 0 || start[move_dir] > dim[move_dir])
     {
-        start[move_dir]-=1;
+        start[move_dir] -= ((goal[move_dir]-start[move_dir])/(int)abs(goal[move_dir]-start[move_dir])); 
         world[start[0]][start[1]][start[2]] = symbols[0];
-        wormhole(world,symbols,dim,goal,start,goal_reached);
+        wormhole(world,symbols,dim,goal,start,greached);
     } 
 
     //symbols check--make sure that the point isn't moving onto an obstacle
@@ -51,26 +52,29 @@ void pathfinder(\
        if(world[start[0]][start[1]][start[2]] == symbols[1])
        {
            cout<<"\n\nPathfinder:Pathfinder finds goal\n\n";
-           goal_reached = true;
+           greached = true;
+           cout<<greached<<endl;
        }
        else
        {
            cout<<"\n\nPathfinder:Placing moving to new space\n\n";
            world[start[0]][start[1]][start[2]] = symbols[2];
-           pathfinder(world,symbols,dim,goal,start,goal_reached);
+           pathfinder(world,symbols,dim,goal,start);
        }
     }
     //if heading into an obstacle, block off current position and backtrack
     else
     {
         cout<<"\n\nPathfinder:final else statment\n\n";
+        start[move_dir] -= ((goal[move_dir]-start[move_dir])/(int)abs(goal[move_dir]-start[move_dir])); 
         world[start[0]][start[1]][start[2]] = symbols[0];        
-        start[move_dir]-=1;
-        wormhole(world,symbols,dim,goal,start,goal_reached);
+        wormhole(world,symbols,dim,goal,start,greached);
     }
 
-    if(goal_reached == false)
+    if(greached == false)
     {
-        pathfinder(world,symbols,dim,goal,start,goal_reached);
+        cout<<"\n goal reach status:"<<greached<<endl;
+        print_floor(world,dim);
+        pathfinder(world,symbols,dim,goal,start);
     }
 }
