@@ -1,10 +1,20 @@
+/*
+ * Wormhole.h
+ *
+ * Examines all of the spaces around the point and takes the nearest empty space
+ *      or backtracks along the path already taken, after placing a virtual
+ *      obstacle in its way.
+ */
+
 #include<vector>
 #include<iostream>
 
 using namespace std;
+
+template<typename T>
 void wormhole(\
-        vector< vector< vector<char> > > & world,\
-        const char (&symbols)[3],\
+        vector< vector< vector<T> > > & world,\
+        const T (&symbols)[3],\
         const int (&dim)[3], \
         int (&goal)[3],\
         int (&start)[3],\
@@ -61,32 +71,27 @@ void wormhole(\
            break;
    } 
 
-   cout<<"\n\n    Wormhole: made it through switch statement, case: "<<choice<<endl;
    //boundary check
    if((0<=move_dir[0] && move_dir[0]<dim[0] && 0<=move_dir[1] && move_dir[1]<dim[1] &&\
            0<=move_dir[2] && move_dir[2]<dim[2]) && goal_reached == false)
    {
-       cout<<"\n    Wormhole:step is inside the bounds";
        //find nearest exit--pick goal or unexplored block
        if(choice<=5)
        {
           //pick goal if able
           if(world[move_dir[0]][move_dir[1]][move_dir[2]]==symbols[1])
           {
-             cout<<"\n    Wormhole:next step is Goal.\n";
              goal_reached = true;
           }
           //if an obstacle or previously explored keep searching
           else if(world[move_dir[0]][move_dir[1]][move_dir[2]]==symbols[0] &&\
                   world[move_dir[0]][move_dir[1]][move_dir[2]]==symbols[2])
           {
-            cout<<"\n    Wormhole:Step should not be taken...tying again.";
             wormhole(world,symbols,dim,goal,start,goal_reached,(choice+1));     
           }
           else
           {
-            cout<<"\n    Wormhole:Step taken in choices 0-5\n";
-            start[0] = move_dir[0];//TODO see if the copy function would be better 
+            start[0] = move_dir[0]; 
             start[1] = move_dir[1];
             start[2] = move_dir[2];
           }
@@ -95,19 +100,16 @@ void wormhole(\
        //with better solutions taken, block off current point and backtrack 
        else if(choice<12 && choice>5)
        {
-           cout<<"\n    Wormhole:Choice is 6+.";
             if( world[move_dir[0]][move_dir[1]][move_dir[2]]==symbols[2])
             {
-                cout<<"\n    Wormhole:Backtracking.";
                 world[start[0]][start[1]][start[2]] = symbols[0];
-                start[0] = move_dir[0];//TODO see if the copy function would be better 
+                start[0] = move_dir[0]; 
                 start[1] = move_dir[1];
                 start[2] = move_dir[2];
             }
              
             else
             {
-                cout<<"\n    Wormhole:backtracking failed. Trying again.\n";
                 wormhole(world,symbols,dim,goal,start,goal_reached,(choice+1));
             }
 
@@ -116,7 +118,6 @@ void wormhole(\
    //if current choice is out of bounds and hasn't hit choice 12
    else if(goal_reached==false)
    {
-       cout<<"\n    Wormhole: choice is not inside bounds, trying again";
        wormhole(world,symbols,dim,goal,start,goal_reached,(choice+1));
    
    }

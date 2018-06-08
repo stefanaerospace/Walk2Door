@@ -1,3 +1,10 @@
+/*
+ * Pathfinder.h
+ *
+ * Implements a basic beeline path finder, if it hits an obstacle, it passes
+ *      the choice on to Wormhole.h
+ */
+
 #include<cmath>
 #include<algorithm>
 #include<iostream>
@@ -47,15 +54,12 @@ void pathfinder(\
     else if(world[start[0]][start[1]][start[2]] != symbols[0] && \
             world[start[0]][start[1]][start[2]] != symbols[2])
     {
-       cout<<"\n\nIn first else if statement\n\n";
        if(world[start[0]][start[1]][start[2]] == symbols[1])
        {
-           cout<<"\n\nPathfinder:Pathfinder finds goal\n\n";
            goal_reached = true;
        }
        else
        {
-           cout<<"\n\nPathfinder:Placing moving to new space\n\n";
            world[start[0]][start[1]][start[2]] = symbols[2];
            pathfinder(world,symbols,dim,goal,start,goal_reached);
        }
@@ -63,7 +67,6 @@ void pathfinder(\
     //if heading into an obstacle, block off current position and backtrack
     else
     {
-        cout<<"\n\nPathfinder:final else statment\n\n";
         world[start[0]][start[1]][start[2]] = symbols[0];        
         start[move_dir]-=1;
         wormhole(world,symbols,dim,goal,start,goal_reached);

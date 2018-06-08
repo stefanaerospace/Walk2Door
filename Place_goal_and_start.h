@@ -1,5 +1,9 @@
-//Tried to get this to work as a recursive template, turns out that is a bit more than
-//	I am willing to chew at this moment.
+/*
+ * Place_goal_and_start.h
+ *
+ * function that places a door (exit condition) and a point (starting
+ * condition) on the map, while avoiding obstacles
+ */
 #include<stdlib.h>
 #include"coordin.h"
 
@@ -12,10 +16,7 @@ void place_goal_and_start( \
         int (&start)[3],\
         bool has_goal,\
         bool has_start)
-{     
-    //function that places a door (exit condition) and a point (starting
-    //condition) on the map, while avoiding obstacles
-    
+{      
     using namespace std;
 
     int x = rand() % dim[0];

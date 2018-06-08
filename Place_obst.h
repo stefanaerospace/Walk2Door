@@ -1,3 +1,13 @@
+/*
+ * Place_obst.h
+ * 
+ * Function that manipulates the given 3D map and inserts obstacles into it
+ *   the obs_chance is the percent chance an obstacle should be placed 
+ *   there.
+ */
+   
+
+
 #include"coordin.h"
 #include<stdlib.h>
 #include<time.h>
@@ -9,10 +19,7 @@ void place_obst(\
         const int (&dim)[3], \
         int obst_chance)
 {
-    //function that manipulates the given 3D map and inserts obstacles into it
-    //    the obs_chance is the percent chance an obstacle should be placed 
-    //    there.
-   
+
     srand(time(NULL));
 
     for(int x=0; x<= dim[0]-1; x++)
